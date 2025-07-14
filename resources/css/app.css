@@ -8,7 +8,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* Add theme styles */
-@import './themes/claude.css';
+@import './themes/cosmic-night.css';
 
 @layer base {
     * {
