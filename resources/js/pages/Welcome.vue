@@ -29,6 +29,8 @@ import { Activity, ArrowRight, PlayCircle, Star, Target, TrendingUp, Trophy, Use
 
         <!-- Hero Content -->
         <div class="px-6 pt-16 pb-24 lg:px-8 lg:pt-24">
+            <div>{{ $page.props }}</div>
+
             <div class="mx-auto max-w-4xl text-center">
                 <div class="animate-fade-in-up animation-delay-300 opacity-0">
                     <h1 class="text-5xl font-bold tracking-tight text-slate-900 sm:text-7xl dark:text-white">
