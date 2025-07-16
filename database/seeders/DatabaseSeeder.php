@@ -13,11 +13,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Create some test users first
+        User::factory(50)->create();
 
+        // Create the default test user
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        // Create admin user from environment variables
+        User::factory()->create([
+            'name' => env('ADMIN_NAME', 'Admin User'),
+            'email' => env('ADMIN_EMAIL', 'admin@skvosh.com'),
+            'password' => bcrypt(env('ADMIN_PASSWORD', 'password')),
+        ]);
+
+        // Run the club seeder (which will also create club-user relationships)
+        $this->call([
+            ClubSeeder::class,
         ]);
     }
 }
