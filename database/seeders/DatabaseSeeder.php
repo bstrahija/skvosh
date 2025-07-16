@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         // Run the club seeder (which will also create club-user relationships)
         $this->call([
             ClubSeeder::class,
+            CourtSeeder::class,
         ]);
     }
 }

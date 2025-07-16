@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Club extends Model
@@ -59,6 +60,30 @@ class Club extends Model
                 $club->slug = Str::slug($club->name);
             }
         });
+    }
+
+    /**
+     * Get all courts belonging to this club
+     */
+    public function courts(): HasMany
+    {
+        return $this->hasMany(Court::class);
+    }
+
+    /**
+     * Get only active courts
+     */
+    public function activeCourts(): HasMany
+    {
+        return $this->courts()->where('is_active', true);
+    }
+
+    /**
+     * Get courts by type
+     */
+    public function courtsByType(string $type): HasMany
+    {
+        return $this->courts()->where('type', $type);
     }
 
     /**
