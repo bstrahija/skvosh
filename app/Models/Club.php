@@ -63,6 +63,30 @@ class Club extends Model
     }
 
     /**
+     * Get all competitions hosted by this club
+     */
+    public function competitions(): HasMany
+    {
+        return $this->hasMany(Competition::class);
+    }
+
+    /**
+     * Get active competitions for this club
+     */
+    public function activeCompetitions(): HasMany
+    {
+        return $this->competitions()->active();
+    }
+
+    /**
+     * Get upcoming competitions for this club
+     */
+    public function upcomingCompetitions(): HasMany
+    {
+        return $this->competitions()->upcoming();
+    }
+
+    /**
      * Get all courts belonging to this club
      */
     public function courts(): HasMany

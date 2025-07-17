@@ -49,6 +49,65 @@ class User extends Authenticatable
     }
 
     /**
+     * Get competitions this user has created
+     */
+    public function createdCompetitions(): HasMany
+    {
+        return $this->hasMany(Competition::class, 'created_by');
+    }
+
+    /**
+     * Get competitions this user participates in
+     */
+    public function competitions(): BelongsToMany
+    {
+        return $this->belongsToMany(Competition::class, 'competition_participants')
+            ->withPivot([
+                'role',
+                'status',
+                'seed',
+                'current_ranking',
+                'points',
+                'wins',
+                'losses',
+                'draws',
+                'statistics',
+                'entry_fee_paid',
+                'fee_paid',
+                'registered_at',
+                'confirmed_at',
+                'withdrawn_at',
+                'withdrawal_reason',
+                'notes'
+            ])
+            ->withTimestamps();
+    }
+
+    /**
+     * Get competitions where user is an admin
+     */
+    public function adminCompetitions(): BelongsToMany
+    {
+        return $this->competitions()->wherePivot('role', 'admin');
+    }
+
+    /**
+     * Get competitions where user is a participant
+     */
+    public function participantCompetitions(): BelongsToMany
+    {
+        return $this->competitions()->wherePivot('role', 'participant');
+    }
+
+    /**
+     * Get active competitions for this user
+     */
+    public function activeCompetitions(): BelongsToMany
+    {
+        return $this->competitions()->wherePivotIn('status', ['registered', 'confirmed']);
+    }
+
+    /**
      * Get all reservations for this user
      */
     public function reservations(): HasMany
