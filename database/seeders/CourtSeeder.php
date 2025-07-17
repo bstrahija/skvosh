@@ -63,10 +63,10 @@ class CourtSeeder extends Seeder
 
         // Distribute remaining courts among other sports
         $otherSports = array_diff($sports, ['squash']);
-        
+
         if (!empty($otherSports) && $remaining > 0) {
             $sportsToUse = array_slice($otherSports, 0, min(count($otherSports), $remaining));
-            
+
             foreach ($sportsToUse as $sport) {
                 if ($remaining > 0) {
                     $distribution[$sport] = max(1, intval($remaining / count($sportsToUse)));
@@ -146,10 +146,13 @@ class CourtSeeder extends Seeder
         ];
 
         $data = $typeData[$type] ?? $typeData['squash'];
-        
+
         // Add basic amenities
         $data['amenities'] = fake()->randomElements([
-            'air_conditioning', 'heating', 'water_fountain', 'equipment_storage'
+            'air_conditioning',
+            'heating',
+            'water_fountain',
+            'equipment_storage'
         ], fake()->numberBetween(1, 3));
 
         return $data;
@@ -162,8 +165,13 @@ class CourtSeeder extends Seeder
     {
         return [
             'amenities' => [
-                'air_conditioning', 'heating', 'viewing_gallery', 'sound_system',
-                'video_recording', 'towel_service', 'coaching_available'
+                'air_conditioning',
+                'heating',
+                'viewing_gallery',
+                'sound_system',
+                'video_recording',
+                'towel_service',
+                'coaching_available'
             ],
             'equipment_included' => 'Premium equipment and towels included',
             'notes' => 'Premium court with enhanced amenities and professional features',

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Court extends Model
 {
@@ -41,6 +42,30 @@ class Court extends Model
     public function club(): BelongsTo
     {
         return $this->belongsTo(Club::class);
+    }
+
+    /**
+     * Get all reservations for this court
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    /**
+     * Get active reservations for this court
+     */
+    public function activeReservations(): HasMany
+    {
+        return $this->reservations()->active();
+    }
+
+    /**
+     * Get future reservations for this court
+     */
+    public function futureReservations(): HasMany
+    {
+        return $this->reservations()->future();
     }
 
     /**
@@ -117,7 +142,7 @@ class Court extends Model
     public function getAvailableTimeSlotsForDay(string $day): array
     {
         $availableHours = $this->available_hours ?? [];
-        
+
         // If no specific hours set for court, use club hours
         if (empty($availableHours)) {
             $clubHours = $this->club->operating_hours ?? [];

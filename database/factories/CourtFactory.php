@@ -21,7 +21,7 @@ class CourtFactory extends Factory
     public function definition(): array
     {
         $type = $this->faker->randomElement(['squash', 'tennis', 'badminton', 'racquetball', 'table_tennis']);
-        
+
         return [
             'club_id' => Club::factory(),
             'name' => 'Court ' . $this->faker->numberBetween(1, 10),
@@ -153,8 +153,13 @@ class CourtFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'amenities' => [
-                    'air_conditioning', 'heating', 'viewing_gallery', 'sound_system',
-                    'video_recording', 'towel_service', 'coaching_available'
+                    'air_conditioning',
+                    'heating',
+                    'viewing_gallery',
+                    'sound_system',
+                    'video_recording',
+                    'towel_service',
+                    'coaching_available'
                 ],
                 'hourly_rate' => $this->faker->randomFloat(2, 50, 80),
                 'equipment_included' => 'Premium equipment and towels included',

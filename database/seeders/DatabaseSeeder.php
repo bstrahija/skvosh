@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ClubSeeder::class,
             CourtSeeder::class,
+            ReservationSeeder::class,
         ]);
     }
 }

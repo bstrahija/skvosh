@@ -32,7 +32,7 @@ return new class extends Migration
             $table->index(['club_id', 'is_active']);
             $table->index(['club_id', 'type']);
             $table->index('sort_order');
-            
+
             // Unique constraint to prevent duplicate court names within a club
             $table->unique(['club_id', 'name']);
         });
