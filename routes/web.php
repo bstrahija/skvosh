@@ -40,6 +40,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('statistics', function () {
         return Inertia::render('Statistics');
     })->name('statistics');
+
+    // Mobile navigation routes
+    Route::get('reservations', function () {
+        return Inertia::render('Reservations');
+    })->name('reservations');
+
+    Route::get('create', function () {
+        return Inertia::render('Create');
+    })->name('create');
+
+    Route::get('search', function () {
+        return Inertia::render('Search');
+    })->name('search');
 });
 
 require __DIR__ . '/settings.php';
