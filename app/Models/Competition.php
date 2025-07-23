@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Competition extends Model
@@ -164,6 +165,38 @@ class Competition extends Model
     public function confirmedParticipants(): BelongsToMany
     {
         return $this->participants()->wherePivot('status', 'confirmed');
+    }
+
+    /**
+     * Get all rounds in this competition
+     */
+    public function rounds(): HasMany
+    {
+        return $this->hasMany(Round::class)->orderBy('round_number');
+    }
+
+    /**
+     * Get all groups across all rounds in this competition
+     */
+    public function groups(): HasMany
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    /**
+     * Get the current active round
+     */
+    public function currentRound()
+    {
+        return $this->rounds()->where('status', 'active')->first();
+    }
+
+    /**
+     * Get the next pending round
+     */
+    public function nextRound()
+    {
+        return $this->rounds()->where('status', 'pending')->orderBy('round_number')->first();
     }
 
     /**

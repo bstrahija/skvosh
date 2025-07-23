@@ -5,14 +5,49 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { BarChart3, BookOpen, Folder, Gamepad2, Grid3X3, LayoutGrid, Play, Target, Trophy, Video } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
+        title: 'Your Match',
+        href: '/your-match',
+        icon: Trophy,
+    },
+    {
         title: 'Dashboard',
         href: '/dashboard',
         icon: LayoutGrid,
+    },
+    {
+        title: 'Live Games',
+        href: '/live-games',
+        icon: Play,
+    },
+    {
+        title: 'All Games',
+        href: '/all-games',
+        icon: Gamepad2,
+    },
+    {
+        title: 'Videos',
+        href: '/videos',
+        icon: Video,
+    },
+    {
+        title: 'Categories',
+        href: '/categories',
+        icon: Grid3X3,
+    },
+    {
+        title: 'Score',
+        href: '/score',
+        icon: Target,
+    },
+    {
+        title: 'Statistics',
+        href: '/statistics',
+        icon: BarChart3,
     },
 ];
 

@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
             CourtSeeder::class,
             ReservationSeeder::class,
             CompetitionSeeder::class,
+            RoundSeeder::class,
+            GroupSeeder::class,
         ]);
     }
 }

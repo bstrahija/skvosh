@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Zap\Models\Concerns\HasSchedules;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, HasSchedules, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
     ];
 
@@ -171,6 +173,44 @@ class User extends Authenticatable
     public function memberClubs(): BelongsToMany
     {
         return $this->clubs()->wherePivot('role', 'member');
+    }
+
+    /**
+     * Get all group participations for this user
+     */
+    public function groupParticipations(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'group_participants')
+            ->withPivot([
+                'position',
+                'seed',
+                'points',
+                'wins',
+                'losses',
+                'draws',
+                'statistics',
+                'advanced',
+                'eliminated',
+                'joined_at',
+                'notes'
+            ])
+            ->withTimestamps();
+    }
+
+    /**
+     * Get active group participations (not eliminated)
+     */
+    public function activeGroupParticipations(): BelongsToMany
+    {
+        return $this->groupParticipations()->wherePivot('eliminated', false);
+    }
+
+    /**
+     * Get groups where user has advanced
+     */
+    public function advancedGroups(): BelongsToMany
+    {
+        return $this->groupParticipations()->wherePivot('advanced', true);
     }
 
     /**
